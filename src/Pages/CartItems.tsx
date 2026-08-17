@@ -3,6 +3,7 @@ import axios from "axios";
 import { AppContext } from "../Context/AppContext";
 import CartTotal from "../Components/CartTotal";
 import { VITE_BACKEND_URL } from "../API/api";
+import { Loader } from "lucide-react";
 
 const CartItems = () => {
   const { removeFromCart, updateQuantity, token } =
@@ -82,13 +83,16 @@ const CartItems = () => {
 
   // ================= Loading =================
 
-  if (loading) {
-    return (
-      <div className="px-4 sm:px-10 mt-10">
-        <p className="text-gray-500">Loading cart...</p>
-      </div>
-    );
-  }
+  if(loading){
+        return(
+          <div className="w-full h-full mx-auto flex items-center justify-center mt-30">
+              <Loader className=" animate-spin  duration-1000 transition-all 
+            size-10 text-gray-500"/>
+            <h1 className="text-xl text-gray-500"> 
+            Loading...</h1>
+          </div>
+        )
+      }
 
   // ================= UI =================
 

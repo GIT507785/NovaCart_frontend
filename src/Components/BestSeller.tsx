@@ -74,7 +74,7 @@ import { Loader } from "lucide-react";
      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 px-4 sm:px-10 mt-14">
   {bestSeller.length === 0 ? (
     <div className="col-span-full flex justify-center items-center py-20">
-      <h2 className="text-2xl sm:text-4xl font-bold text-gray-400">
+      <h2 className="text-xl sm:text-xl font-bold text-gray-400">
         Best Seller Products Not Found 🙄
       </h2>
     </div>
