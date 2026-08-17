@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { VITE_BACKEND_URL } from "../API/api";
 import { toast } from "react-toastify";
+import { Loader } from "lucide-react";
 
 
  interface  filteredProducts {
@@ -16,14 +17,16 @@ import { toast } from "react-toastify";
     sizes: string[];
     date: number;
     bestseller: boolean;
-}[]
-
-const BestSeller = () => {
-  const [bestSeller, setBestSeller] = useState<filteredProducts[]>([]);
-
+  }[]
+  
+  const BestSeller = () => {
+    const [bestSeller, setBestSeller] = useState<filteredProducts[]>([]);
+  const [loading , setloading] = useState(false)  
+  const navigate = useNavigate()
+  
   const fetchBestSeller = async ()=>{
     try {
-      
+        setloading(true)
        const {data} = await axios.get(`${VITE_BACKEND_URL}/api/user/allproducts` , {})
 
        if(data.success){
@@ -34,6 +37,8 @@ const BestSeller = () => {
       }
     } catch (error:any) {
       toast.error(error.message)
+    } finally{
+      setloading(false)
     }
   }
 
@@ -41,10 +46,17 @@ const BestSeller = () => {
   fetchBestSeller()
   }, []);
 
-   
-   
-
-   const navigate = useNavigate()
+  
+      if(loading){
+        return(
+          <div className="w-full h-full mx-auto flex items-center justify-center mt-30">
+              <Loader className=" animate-spin  duration-1000 transition-all 
+            size-10 text-gray-500"/>
+            <h1 className="text-xl text-gray-500"> 
+            Loading...</h1>
+          </div>
+        )
+      }
 
   return (
     <div className="flex flex-col items-center mt-5 sm:mt-45">

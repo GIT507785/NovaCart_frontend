@@ -3,6 +3,7 @@ import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import { VITE_BACKEND_URL } from "../API/api";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 type Product = {
   _id: string;
@@ -14,15 +15,17 @@ type Product = {
 };
 
 const Collection = () => {
+  const navigate = useNavigate()
    const [products, setProducts] = useState<Product[]>([]);
   const [sortType, setSortType] = useState("relevant");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
+  const [loading , setLoading] = useState(false)
   
   const fetchAllproducts = async () =>{
    try {
-     
+       setLoading(true)
       const {data} = await axios.get(`${VITE_BACKEND_URL}/api/user/allproducts` , {})
 
       if(data.success){
@@ -33,6 +36,8 @@ const Collection = () => {
       }
    } catch (error:any) {
      toast.error(error.message)
+   } finally{
+    setLoading(false)
    }
   }
   const toggleCategory = (e: ChangeEvent<HTMLInputElement>) => {
@@ -106,9 +111,23 @@ const Collection = () => {
     sortProducts();
   }, [sortType]);
 
+   if(products.length <  0){
+    setLoading(true)
+   }
+
+   if (loading) {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="flex items-center gap-2 text-xl text-gray-500">
+        <Loader2 className="animate-spin" />
+        Loading Products...
+      </div>
+    </div>
+  );
+}
+
    
 
-   const navigate = useNavigate()
 
   return (
      <>

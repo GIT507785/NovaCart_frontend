@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { VITE_BACKEND_URL } from "../API/api"
 import { toast } from "react-toastify"
+import { Loader, Loader2 } from "lucide-react"
 
  interface products {
   name:string,
@@ -13,13 +14,15 @@ import { toast } from "react-toastify"
 
 const LatestCollections = () => {
   
+
    const navigate = useNavigate()
+   const[loading , setloading  ]  = useState(false)
 
     const [products , setProducts] = useState<products[]>([])
   
      const fetchProducts = async () =>{
       try {
-        
+         setloading(true)
          const {data} = await axios.get(`${VITE_BACKEND_URL}/api/user/allproducts` , {})
          if(data.success){
           setProducts(data.items)
@@ -28,13 +31,26 @@ const LatestCollections = () => {
          }
       } catch (error:any) {
         toast.error(error.message)
+      } finally{
+        setloading(false)
       }
      }
 
      useEffect(()=>{
       fetchProducts()
      },[])
-
+  
+      if(loading){
+        return(
+          <div className="w-full h-full mx-auto flex items-center justify-center mt-30">
+              <Loader className=" animate-spin  duration-1000 transition-all 
+            size-10 text-gray-500"/>
+            <h1 className="text-xl text-gray-500"> 
+            Loading...</h1>
+          </div>
+        )
+      }
+      
 
     return (
     <div className="flex flex-col items-center justify-center  mt-3 sm:mt-14">
