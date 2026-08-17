@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { VITE_BACKEND_URL } from "../API/api"
 import { toast } from "react-toastify"
-import { Loader, Loader2 } from "lucide-react"
+import { Loader } from "lucide-react"
 
  interface products {
   name:string,
