@@ -82,11 +82,8 @@ const Wishlist = () => {
     }
 
     try {
-      const { data } = await axios.post(
-        `${VITE_BACKEND_URL}/api/user/removewishlist`,
-        {
-          productId,
-        },
+      const { data } = await axios.delete(
+        `${VITE_BACKEND_URL}/api/user/removeWishlist/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
