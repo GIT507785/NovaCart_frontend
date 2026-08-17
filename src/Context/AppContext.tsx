@@ -19,10 +19,7 @@ interface CartItem {
 interface AppContextType {
   cartItems: CartItem[];
 
-  addToCart: (
-    productId: string,
-    size: string
-  ) => Promise<void>;
+
 
   removeFromCart: (
     productId: string,

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react"
-import { AppContext } from "../Context/AppContext"
+import {  useEffect, useState } from "react"
 import { products } from "../assets/assets/assets"
 
 
@@ -22,7 +21,6 @@ function MyOrders() {
       
 
       const [orders, setOrders] = useState<products[]>([])
-      const {cartItems} = useContext(AppContext)
 
       useEffect(()=>{
         setOrders(products)

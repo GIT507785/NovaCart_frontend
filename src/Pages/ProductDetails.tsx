@@ -74,6 +74,13 @@ const ProductDetails = () => {
       </div>
     );
   }
+  if (!cartItems) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <h1 className="text-xl font-semibold">cart items Not Found</h1>
+      </div>
+    );
+  }
 
 
 const addToCart = async (
