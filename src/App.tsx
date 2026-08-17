@@ -13,6 +13,8 @@ import PaymentPage from "./Pages/PaymentPage"
 import MyOrders from "./Pages/MyOrders"
 import { useState } from "react"
 import Profile from "./Pages/Profile"
+import Search from "./Components/Search"
+import WishList from "./Components/WishList"
 
  
  const Layout = ()=>{
@@ -24,6 +26,7 @@ import Profile from "./Pages/Profile"
     <>
     <Navbar token={token} setToken={setToken}/>
     <Outlet/>
+    <Footer/>
     </>
   )
  }
@@ -77,6 +80,14 @@ const App = () => {
     path:"myprofile",
     Component:Profile
   },
+  {
+    path:"search",
+    Component:Search
+  },
+  {
+    path:"wishlist",
+    Component:WishList
+  },
      
   ]
   },
@@ -87,7 +98,6 @@ const App = () => {
     <>
     <ToastContainer/>
       <RouterProvider router={router}/>
-      <Footer/>
     </>
   )
 }

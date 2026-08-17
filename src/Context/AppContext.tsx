@@ -32,6 +32,10 @@ interface AppContextType {
     quantity: number
   ) => Promise<void>;
 
+ 
+
+   addToWishlist: (productId: string) => void;
+
   token: string | null;
 
   setToken: React.Dispatch<
@@ -215,6 +219,40 @@ const AppContextProvider = ({
     }, 0);
   };
 
+
+  //=================== WISH LIST =================== 
+
+const addToWishlist = async (productId: string) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first");
+      return;
+    }
+
+    const { data } = await axios.post(
+      `${VITE_BACKEND_URL}/api/user/addWishlist`,
+      { productId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (data.success) {
+      toast.success(data.message || "Added to wishlist ❤️");
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error: any) {
+    toast.error(
+      error.response?.data?.message || "Something went wrong"
+    );
+  }
+};
+
   // ================= CONTEXT VALUE =================
 
   const value: AppContextType = {
@@ -228,6 +266,7 @@ const AppContextProvider = ({
     delivery_fee,
     token,
     setToken,
+    addToWishlist
   };
 
   return (

@@ -1,6 +1,7 @@
 import image from '../assets/assets//laptop.jpg'
 import OurPolicy from  "../Components/OurPolicy"
 import NewsLetter from '../Components/NewsLetter'
+import { Link } from 'react-router-dom'
 
 const Contact = () => {
   return (
@@ -26,7 +27,9 @@ const Contact = () => {
            <h2 className='text-xl text-gray-800 mt-8 my-2 font-serif '>CAREERS  FOREVER</h2>
            <p className='mt-5 text-sm '>Learn more about our  teams and job openings. </p>
 
-           <button className='border-1 border-gray-600 cursor-pointer  px-5 py-2.5 mt-10 mb-9 '>Explore Jobs</button>
+           <Link 
+            onClick={()=>window.scrollTo({top:0 , behavior:"smooth"})}
+           to={'/'} className='border-1 border-gray-600 cursor-pointer  px-5 py-2.5 mt-10 mb-9 '>Shop Now</Link>
         </div>
       </div> 
 

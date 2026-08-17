@@ -1,27 +1,97 @@
-import { assets } from "../assets/assets/assets"
+import { assets } from "../assets/assets/assets";
+import {motion} from 'framer-motion'
 
 const Hero = () => {
-  return ( 
-    <div className="flex items-center justify-center">
+  return (
+    <section className="w-full px-3 sm:px-6 lg:px-10">
+      <div
+        className="
+          mx-auto mt-6 sm:mt-10
+          w-full max-w-7xl
+          flex flex-col md:flex-row
+          border border-gray-300
+          overflow-hidden
+        "
+      >
+        {/* Left Content */}
+        <motion.div
+  initial={{ opacity: 0, x: -60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className="
+    w-full md:w-1/2
+    min-h-[280px] sm:min-h-[350px] md:min-h-[420px]
+    px-5 sm:px-8 md:px-10 lg:px-14
+    flex flex-col
+    items-center
+    justify-center
+  "
+>
+  {/* Best Sellers */}
+  <motion.div
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: 0.2 }}
+    className="flex items-center gap-2 mb-3"
+  >
+    <span className="h-[1px] w-8 sm:w-10 bg-gray-600"></span>
 
-    <div className="mt-10   sm:flex-row flex-col flex  w-50 sm:h-100 sm:w-300  border border-gray-300">
-      <div className="sm:w-150 w-50 px-4 sm:h-auto h-50 flex flex-col items-center justify-center">
-        <div className="flex gap-2 sm:-ml-14">
-            <span className="h-1 w-10 mt-2 bg-gray-600"></span>
-            <h1 className="font-medium text-sm  text-slate-600">OUR BESTSELLERS </h1>
-        </div>
-         <h1 className="text-4xl  text-slate-600 font-serif">Latest Arrivals</h1>
-         <div className="flex gap-2 sm:-ml-26 mt-1">
-            <h1 className="font-medium text-sm  text-slate-600">SHOP NOW </h1>
-            <span className="h-1 w-10 mt-2 bg-gray-600"></span>
+    <h2 className="font-medium text-xs sm:text-sm text-slate-600 tracking-wide">
+      OUR BESTSELLERS
+    </h2>
+  </motion.div>
+
+  {/* Heading */}
+  <motion.h1
+    initial={{ opacity: 0, y: 25 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.4 }}
+    className="
+      text-3xl
+      sm:text-4xl
+      md:text-4xl
+      lg:text-5xl
+      text-slate-600
+      font-serif
+      text-center
+      leading-tight
+    "
+  >
+    Latest Arrivals
+  </motion.h1>
+
+  {/* Shop Now */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: 0.6 }}
+    className="flex items-center gap-2 mt-3"
+  >
+    <h2 className="font-medium text-xs sm:text-sm text-slate-600 tracking-wide">
+      SHOP NOW
+    </h2>
+
+    <span className="h-[1px] w-8 sm:w-10 bg-gray-600"></span>
+  </motion.div>
+</motion.div>
+
+        {/* Hero Image */}
+        <div className="w-full md:w-1/2">
+          <img
+            src={assets.hero_img}
+            className="
+              w-full
+              h-[280px]
+              sm:h-[350px]
+              md:h-[420px]
+              object-cover
+            "
+            alt="Latest Arrivals"
+          />
         </div>
       </div>
-      <div className="">
-        <img src={assets.hero_img} className="sm:h-100 h-50 w-50 sm:w-150" alt="" />
-      </div>
-    </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Hero
+export default Hero;
