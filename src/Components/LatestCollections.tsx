@@ -65,7 +65,7 @@ const LatestCollections = () => {
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.2 }}
   transition={{ duration: 0.7, ease: "easeOut" }}
-  className="w-full px-3 sm:px-6 lg:px-10 mt-8 sm:mt-14"
+  className="w-full px-3 sm:px-6 lg:px-10 mt-12 sm:mt-14"
 >
       
       {/* Section Heading */}
@@ -98,7 +98,7 @@ const LatestCollections = () => {
           gap-3
           sm:gap-5
           lg:gap-6
-          mt-8
+          py-10
           sm:mt-10
           max-w-7xl
           mx-auto

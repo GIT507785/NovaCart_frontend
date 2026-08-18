@@ -4,6 +4,8 @@ import axios from "axios";
 import { VITE_BACKEND_URL } from "../API/api";
 import { toast } from "react-toastify";
 import { Loader } from "lucide-react";
+import { motion } from "framer-motion";
+
 
 interface Product {
   _id: string;
@@ -15,7 +17,7 @@ interface Product {
   subCategory: string;
   sizes: string[];
   date: number;
-  bestseller: boolean;
+  bestSeller: boolean;
 }
 
 const BestSeller = () => {
@@ -34,9 +36,8 @@ const BestSeller = () => {
 
       if (data.success) {
         const filteredProducts = data.items
-          .filter((item: Product) => item.bestseller === true)
+          .filter((item: Product) => item.bestSeller === true)
           .slice(0, 8);
-
         setBestSeller(filteredProducts);
       } else {
         toast.error(data.message);
@@ -65,7 +66,12 @@ const BestSeller = () => {
   }
 
   return (
-    <section className="w-full px-3 sm:px-6 lg:px-10 mt-10 sm:mt-20 lg:mt-28">
+    <motion.section 
+     initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.7, ease: "easeOut" }}
+    className="w-full px-3 sm:px-6 lg:px-10 mt-10 sm:mt-8 ">
       
       {/* Heading */}
       <div className="flex flex-col items-center">
@@ -95,7 +101,7 @@ const BestSeller = () => {
           gap-3
           sm:gap-5
           lg:gap-6
-          mt-8
+          py-10
           sm:mt-10
           max-w-7xl
           mx-auto
@@ -252,7 +258,7 @@ const BestSeller = () => {
           ))
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

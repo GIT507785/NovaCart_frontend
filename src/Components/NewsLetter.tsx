@@ -23,7 +23,7 @@ const NewsLetter = () => {
       setLoading(true);
 
       const { data } = await axios.post(
-        `${VITE_BACKEND_URL}/api/newsletter/subscribe`,
+        `${VITE_BACKEND_URL}/api/user/subscribe`,
         {
           email: email.trim(),
         }
