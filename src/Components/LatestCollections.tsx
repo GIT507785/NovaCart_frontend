@@ -104,7 +104,7 @@ const LatestCollections = () => {
           mx-auto
         "
       >
-        {products.slice(0, 12).map((item) => (
+        {products.slice(0, 10).map((item) => (
           <div
             key={item._id}
             onClick={() => {

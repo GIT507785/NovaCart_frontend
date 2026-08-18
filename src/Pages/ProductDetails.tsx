@@ -29,8 +29,9 @@ const ProductDetails = () => {
   const [productDetail, setProductDetail] = useState<Pro | null>(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
    const [cartItems , setCartItems] = useState([])
+   const [addingToCart, setAddingToCart] = useState(false);
 
   const fetchProductDetails = async (id: string) => {
     try {
@@ -88,6 +89,7 @@ const addToCart = async (
   size: string,
 ) => {
   try {
+     setAddingToCart(true)
     const { data } = await axios.post(
       `${VITE_BACKEND_URL}/api/user/addtocart`,
       {
@@ -109,6 +111,8 @@ const addToCart = async (
     }
   } catch (error: any) {
     toast.error(error.response?.data?.message || error.message);
+  } finally{
+    setAddingToCart(false)
   }
 };
    
@@ -193,22 +197,25 @@ const addToCart = async (
             ))}
           </div>
 
-          <button
-            onClick={() => {
-               console.log("clicked")
-              if (!size) {
-                toast.error("Please select a size first");
-                return;
-              }
-               if(!token){
-                toast.error('Token not found')
-               }
-              addToCart(productDetail._id, size);
-            }}
-            className="mt-8 bg-black text-white px-8 py-3 hover:bg-gray-800 transition cursor-pointer"
-          >
-            ADD TO CART
-          </button>
+      <button
+  onClick={() => {
+    if (!size) {
+      toast.error("Please select a size first");
+      return;
+    }
+
+    addToCart(productDetail._id, size);
+  }}
+  disabled={addingToCart}
+  className={`mt-8 bg-black text-white px-8 py-3 transition
+    ${
+      addingToCart
+        ? "opacity-50 cursor-not-allowed"
+        : "hover:bg-gray-800 cursor-pointer"
+    }`}
+>
+  {addingToCart ? "Adding..." : "ADD TO CART"}
+</button>
 
           <hr className="my-8" />
 

@@ -71,18 +71,12 @@ const handleForm = async (
   e.preventDefault();
 
   try {
-    // ==============================
-    // PAYMENT METHOD
-    // ==============================
 
     if (!paymentMethod) {
       toast.error("Please select payment method");
       return;
     }
 
-    // ==============================
-    // TOKEN
-    // ==============================
 
     const token = localStorage.getItem("token");
 
@@ -91,18 +85,12 @@ const handleForm = async (
       return;
     }
 
-    // ==============================
-    // CART
-    // ==============================
 
     if (!cartItems || cartItems.length === 0) {
       toast.error("Your cart is empty");
       return;
     }
 
-    // ==============================
-    // ORDER ITEMS
-    // ==============================
 
     const orderItems = cartItems.map((item: any) => ({
       itemId: item.product._id,
@@ -122,9 +110,6 @@ const handleForm = async (
       price: Number(item.product.price),
     }));
 
-    // ==============================
-    // ORDER DATA
-    // ==============================
 
     const orderData = {
       items: orderItems,
@@ -152,18 +137,11 @@ const handleForm = async (
       totalAmount: Number(total),
     };
 
-    // ==============================
-    // CHECK PAYLOAD
-    // ==============================
 
     console.log(
       "ORDER DATA:",
       JSON.stringify(orderData, null, 2)
     );
-
-    // ==============================
-    // API
-    // ==============================
 
     const { data } = await axios.post(
       `${VITE_BACKEND_URL}/api/user/placeOrder`,
@@ -176,18 +154,24 @@ const handleForm = async (
       }
     );
 
-    console.log("ORDER RESPONSE:", data);
 
-    // ==============================
-    // SUCCESS
-    // ==============================
 
     if (data.success) {
       toast.success(data.message || "Order placed successfully");
+        setFormData({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    number: "",
+  });
 
-      console.log("CREATED ORDER:", data.order);
+  setPaymentMethod("");  
 
-      // Yahan baad mein cart clear kar sakte ho
       // clearCart();
 
       return;
@@ -200,24 +184,7 @@ const handleForm = async (
       "========== ORDER ERROR =========="
     );
 
-    console.log(
-      "STATUS:",
-      error.response?.status
-    );
-
-    console.log(
-      "DATA:",
-      error.response?.data
-    );
-
-    console.log(
-      "MESSAGE:",
-      error.message
-    );
-
-    console.log(
-      "================================="
-    );
+    
 
     toast.error(
       error.response?.data?.message ||
